@@ -46,8 +46,10 @@ function App() {
     const ref = image.current!.getBoundingClientRect();
     const x = event.clientX - ref.x;
     const y = event.clientY - ref.y;
-    setDistance(Math.sqrt((x-BALL_X)*(x-BALL_X) + (y-BALL_Y)*(y-BALL_Y)))
-    setMarkerPosition({x: x/ref.width, y: y/ref.height})
+    const x_percentage = x/ref.width;
+    const y_percentage = y/ref.height;
+    setDistance(Math.sqrt((x_percentage-BALL_X)*(x_percentage-BALL_X) + (y_percentage-BALL_Y)*(y_percentage-BALL_Y)))
+    setMarkerPosition({x: x_percentage, y: y_percentage})
   }
 
   const handleSubmit = (e: any) => {
