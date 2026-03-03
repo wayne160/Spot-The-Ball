@@ -7,6 +7,8 @@ import { useState, useRef, useEffect } from 'react';
 import axios from "axios";
 
 const API_BASE_URL = import.meta.env.VITE_BACKEND_URL as string;
+const BALL_X = Number(import.meta.env.VITE_BALL_X);
+const BALL_Y = Number(import.meta.env.VITE_BALL_Y);
 
 interface User {
   email: string;
@@ -44,7 +46,7 @@ function App() {
     const ref = image.current!.getBoundingClientRect();
     const x = event.clientX - ref.x;
     const y = event.clientY - ref.y;
-    setDistance(Math.sqrt((x-200)*(x-200) + (y-200)*(y-200)))
+    setDistance(Math.sqrt((x-BALL_X)*(x-BALL_X) + (y-BALL_Y)*(y-BALL_Y)))
     setMarkerPosition({x: x/ref.width, y: y/ref.height})
   }
 
@@ -76,13 +78,13 @@ function App() {
         <h2 className="mb-5">Select the prize you want to win</h2>
           <div className="container">
             <div className="row text-center">
-              <div className="col-md-4 prize-box" onClick={() => handleClickPrize('car')}>
+              <div className="col-md-4 prize-box mt-3" onClick={() => handleClickPrize('car')}>
                   <img src={car} alt="Car" className="cursor-change"/>
               </div>
-              <div className="col-md-4 prize-box" onClick={() => handleClickPrize('money')}>
+              <div className="col-md-4 prize-box mt-3" onClick={() => handleClickPrize('money')}>
                   <img src={money} alt="Money" className="cursor-change"/>
               </div>
-              <div className="col-md-4 prize-box" onClick={() => handleClickPrize('house')}>
+              <div className="col-md-4 prize-box mt-3" onClick={() => handleClickPrize('house')}>
                   <img src={house} alt="House" className="cursor-change"/>
               </div>
             </div>
