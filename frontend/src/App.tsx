@@ -74,17 +74,17 @@ function App() {
       <h1 className="m-5">SPOT THE BALL</h1>
       {displayPrize && 
       <>
-        <h2 className="mb-5">Select the prize</h2>
+        <h2 className="mb-5">Select the prize you want to win</h2>
           <div className="container">
-            <div className="row">
-              <div className="col" onClick={() => handleClickPrize('car')}>
-                <img src={car} alt="Car" className="img-fluid cursor-change" />
+            <div className="row text-center">
+              <div className="col-md-4 prize-box" onClick={() => handleClickPrize('car')}>
+                  <img src={car} alt="Car" className="cursor-change"/>
               </div>
-              <div className="col" onClick={() => handleClickPrize('money')}>
-                <img src={money} alt="Money" className="img-fluid cursor-change" />
+              <div className="col-md-4 prize-box" onClick={() => handleClickPrize('money')}>
+                  <img src={money} alt="Money" className="cursor-change"/>
               </div>
-              <div className="col" onClick={() => handleClickPrize('house')}>
-                <img src={house} alt="House" className="img-fluid cursor-change" />
+              <div className="col-md-4 prize-box" onClick={() => handleClickPrize('house')}>
+                  <img src={house} alt="House" className="cursor-change"/>
               </div>
             </div>
           </div>
@@ -112,7 +112,7 @@ function App() {
             </div>
             <div className="col-md-4">
               <h2>Click on the spot where you think the ball is hidden in the image on the left</h2>
-              <h2>Then enter your email below to secure your spot</h2>
+              <h2>Then enter your email below to secure your spot with a chance to win the prize you have selected</h2>
               <form onSubmit={handleSubmit} className="mt-5">
                 <input
                   type="email"
@@ -135,28 +135,33 @@ function App() {
         </>}
         {
           displayTable &&
-          <table className="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">email</th>
-                <th scope="col">proximity</th>
-                <th scope="col">prize</th>
-              </tr>
-            </thead>
-            <tbody>
-            {
-              users.map((user, index) => 
-              <tr key={index}>
-                <th scope="row">{index+1}</th>
-                <td>{user.email}</td>
-                <td>{user.proximity}</td>
-                <td>{user.prize}</td>
-              </tr>
-              )
-            }
-            </tbody>
-          </table>
+          <>
+            <h2>Thank you for playing.</h2>
+            <h2>Shortly you will receive an email confirming your entry to the game.</h2>
+            <h2>Below is the leaderboard of the top 10 players with the closest proximity.</h2>
+            <table className="table table-striped table-bordered mt-5">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">email</th>
+                  <th scope="col">proximity</th>
+                  <th scope="col">prize</th>
+                </tr>
+              </thead>
+              <tbody>
+              {
+                users.map((user, index) => 
+                <tr key={index}>
+                  <th scope="row">{index+1}</th>
+                  <td>{user.email}</td>
+                  <td>{user.proximity}</td>
+                  <td>{user.prize}</td>
+                </tr>
+                )
+              }
+              </tbody>
+            </table>
+          </>
         }
     </>
   )
