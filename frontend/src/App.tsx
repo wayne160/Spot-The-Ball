@@ -6,6 +6,8 @@ import soccer from './assets/soccer.jpg';
 import { useState, useRef, useEffect } from 'react';
 import axios from "axios";
 
+const API_BASE_URL = import.meta.env.VITE_BACKEND_URL as string;
+
 interface User {
   email: string;
   proximity: number;
@@ -26,7 +28,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/users")
+      .get(`${API_BASE_URL}/users`)
       .then((res) => {
         setUsers(res.data);
       })
@@ -50,12 +52,12 @@ function App() {
     e.preventDefault();
     if (distance) {
       axios
-        .post("http://localhost:8000/user", {email, proximity: distance, prize})
+        .post(`${API_BASE_URL}/user`, {email, proximity: distance, prize})
         .then(() => {
           setDisplayGame(false);
           setDisplayTable(true);
           axios
-          .post("http://localhost:8000/email", {email, prize})
+          .post(`${API_BASE_URL}/email`, {email, prize})
         })
         .catch ((err: any) => {
           if (err.response) {

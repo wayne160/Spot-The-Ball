@@ -5,19 +5,27 @@ import sqlite3
 import smtplib
 from email.message import EmailMessage
 from fastapi import HTTPException
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+EMAIL = os.environ.get("EMAIL")
+EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")
+FRONTEND_URL = os.environ.get("FRONTEND_URL")
 
 app = FastAPI()
 
+print(FRONTEND_URL)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
+        FRONTEND_URL
     ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 conn = sqlite3.connect("table.db", check_same_thread=False)
 cur = conn.cursor()
@@ -58,13 +66,13 @@ def get_users():
 def send_email(data: dict):
     msg = EmailMessage()
     msg['Subject'] = 'Spot the Ball'
-    msg['From'] = 'wz26099@gmail.com'
+    msg['From'] = os.environ.get("email")
     msg['To'] = data['email']
 
     msg.set_content(f'Your entry to win the {data['prize']} is confirmed.')
 
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
-        smtp.login('wz26099@gmail.com', 'wivt yxoi jrjn daug')
+        smtp.login(EMAIL, EMAIL_PASSWORD)
         smtp.send_message(msg)
 
     return {"message": "Email sent"}
