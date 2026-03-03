@@ -51,14 +51,11 @@ function App() {
     if (distance) {
       axios
         .post("http://localhost:8000/user", {email, proximity: distance, prize})
-        .then((res) => {
+        .then(() => {
           setDisplayGame(false);
           setDisplayTable(true);
           axios
           .post("http://localhost:8000/email", {email, prize})
-          .then((res) => {
-            
-          })
         })
         .catch ((err: any) => {
           if (err.response) {
