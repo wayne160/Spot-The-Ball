@@ -2,7 +2,7 @@ import './App.css'
 import car from './assets/car.jpg';
 import money from './assets/money.jpg';
 import house from './assets/house.jpg';
-import soccer from './assets/soccer.jpg';
+import background from './assets/background.jpg';
 import { useState, useRef, useEffect } from 'react';
 import axios from "axios";
 
@@ -48,6 +48,7 @@ function App() {
     const y = event.clientY - ref.y;
     const x_percentage = x/ref.width;
     const y_percentage = y/ref.height;
+    console.log(x_percentage, y_percentage);
     setDistance(Math.sqrt((x_percentage-BALL_X)*(x_percentage-BALL_X) + (y_percentage-BALL_Y)*(y_percentage-BALL_Y)))
     setMarkerPosition({x: x_percentage, y: y_percentage})
   }
@@ -98,8 +99,8 @@ function App() {
             <div className="col-md-8">
               <div className="position-relative">
                 <img 
-                  src={soccer} 
-                  alt="soccer" 
+                  src={background} 
+                  alt="background" 
                   className="img-fluid cursor-aim"
                   ref={image}
                   onClick={handleImageClick}
