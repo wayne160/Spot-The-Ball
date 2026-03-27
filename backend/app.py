@@ -42,6 +42,7 @@ cur.execute(
 )
 conn.commit()
 
+# Add a new user to the database
 @app.post('/user')
 def add_user(data: dict):
     email = data.get('email')
@@ -55,6 +56,7 @@ def add_user(data: dict):
     conn.commit()
     return {'id': cur.lastrowid, 'email': email, 'proximity': proximity}
 
+# Get the info of all users
 @app.get('/users')
 def get_users():
     cur = conn.cursor()
@@ -62,6 +64,7 @@ def get_users():
     rows = cur.fetchall()
     return [{"email": r[0], "proximity": r[1], "prize": r[2]} for r in rows]
 
+# Send a confirmation email the user
 @app.post("/email")
 def send_email(data: dict):
     msg = EmailMessage()
@@ -76,3 +79,11 @@ def send_email(data: dict):
         smtp.send_message(msg)
 
     return {"message": "Email sent"}
+
+# Return the number of users
+@app.get('/count')
+def count_users():
+    cur = conn.cursor()
+    cur.execute('SELECT count(*) FROM users')
+    count = cur.fetchone()[0]
+    return {"count": count}
